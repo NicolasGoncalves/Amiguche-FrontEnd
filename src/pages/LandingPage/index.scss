@@ -1,0 +1,131 @@
+
+#home {
+    display: flex;
+    justify-content: center; /* Centraliza os filhos horizontalmente */
+    align-items: center; /* Centraliza os filhos verticalmente */
+    min-height: 675px;
+    width: 100%; /* Ocupa toda a largura da tela */
+    max-width: 3080px; /* Limita a largura máxima */
+    margin: 0 auto; /* Centraliza o container na tela */
+    position: relative; /* Para posicionar os círculos absolutos */
+
+    #cta {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding: 3%; /* Substitui margin por padding para melhor alinhamento */
+    
+        .title {
+            font-size: 100px;
+            font-weight: 600;
+            color: rgb(83, 46, 21);
+            font-family: "MontserratAlternates", sans-serif;
+            
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: rgb(83, 46, 21);
+
+            span {    
+                font-weight: 700;
+                color: rgb(112, 53, 14);
+            }
+        }
+    }
+
+    #banner {
+        width: 35%;
+        display: flex;
+        justify-content: center; /* Centraliza a imagem horizontalmente */
+        align-items: center; /* Centraliza a imagem verticalmente */
+        
+        img {
+            width: 100%; /* Ajusta a imagem ao container */
+            max-width: 400px; /* Limita o tamanho da imagem */
+            height: auto;
+        }
+    }
+
+    .circulo {
+        width: 900px;
+        height: 900px;
+        background-color: #FFA21F;
+        border-radius: 50%;
+        position: absolute;
+        left: -200px;
+        top: -300px;
+        z-index: -1;
+        opacity: 0.74;
+    }
+    
+    .circulo2 {
+        width: 515px;
+        height: 515px;
+        background-color: #AA2E17;
+        border-radius: 50%;
+        position: absolute;
+        right: 37%; /* Ajustado para não cobrir o CTA */
+        bottom: 10px;
+        z-index: -1;
+        opacity: 0.74;
+    }
+}
+
+.sobremim{
+    background-image: url("../../../public/images/SobreMim-Background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 405px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    .areaTexto{
+        width: 62%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        h1{
+            padding-left: 2em;
+            align-self: flex-start;
+            font-size: 37px;
+            color: #8C5522;
+        }
+
+        h2{
+            font-size: 18px;
+        }
+    }
+
+    .frame{
+        width: 36%;
+        height: 100%;
+
+        img{
+            width: 69%;
+            height: 85%;
+            object-fit: cover;
+            align-self: center;
+            justify-self: center;
+            border-radius: 17px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
