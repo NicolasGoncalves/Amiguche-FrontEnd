@@ -13,6 +13,11 @@ code {
     monospace;
 }
 
+@font-face {
+  font-family: "MontserratAlternates";
+  src: url("../public/fonts/MontserratAlternates-SemiBold.ttf");
+}
+
 *{
   font-family: "Poppins", sans-serif;
   font-weight: 400;

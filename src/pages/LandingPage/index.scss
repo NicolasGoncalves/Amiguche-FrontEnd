@@ -1,5 +1,17 @@
+.landingPage {
+  h1 {
+    align-self: flex-start;
+    font-size: 41px;
+    color: #8c5522;
+    font-weight: 600;
+  }
 
-#home {
+  h2 {
+    font-size: 19px;
+    text-align: justify;
+  }
+
+  #home {
     display: flex;
     justify-content: center; /* Centraliza os filhos horizontalmente */
     align-items: center; /* Centraliza os filhos verticalmente */
@@ -10,122 +22,184 @@
     position: relative; /* Para posicionar os círculos absolutos */
 
     #cta {
-        width: 35%;
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
-        padding: 3%; /* Substitui margin por padding para melhor alinhamento */
-    
-        .title {
-            font-size: 100px;
-            font-weight: 600;
-            color: rgb(83, 46, 21);
-            font-family: "MontserratAlternates", sans-serif;
-            
-        }
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: 3%; /* Substitui margin por padding para melhor alinhamento */
 
-        .subtitle {
-            font-size: 24px;
-            color: rgb(83, 46, 21);
+      .title {
+        font-size: 100px;
+        font-weight: 600;
+        color: rgb(83, 46, 21);
+        font-family: "MontserratAlternates", sans-serif;
+      }
 
-            span {    
-                font-weight: 700;
-                color: rgb(112, 53, 14);
-            }
+      .subtitle {
+        font-size: 24px;
+        color: rgb(83, 46, 21);
+
+        span {
+          font-weight: 700;
+          color: rgb(112, 53, 14);
         }
+      }
     }
 
     #banner {
-        width: 35%;
-        display: flex;
-        justify-content: center; /* Centraliza a imagem horizontalmente */
-        align-items: center; /* Centraliza a imagem verticalmente */
-        
-        img {
-            width: 100%; /* Ajusta a imagem ao container */
-            max-width: 400px; /* Limita o tamanho da imagem */
-            height: auto;
-        }
+      width: 35%;
+      display: flex;
+      justify-content: center; /* Centraliza a imagem horizontalmente */
+      align-items: center; /* Centraliza a imagem verticalmente */
+
+      img {
+        width: 100%; /* Ajusta a imagem ao container */
+        max-width: 400px; /* Limita o tamanho da imagem */
+        height: auto;
+      }
     }
 
     .circulo {
-        width: 900px;
-        height: 900px;
-        background-color: #FFA21F;
-        border-radius: 50%;
-        position: absolute;
-        left: -200px;
-        top: -300px;
-        z-index: -1;
-        opacity: 0.74;
+      width: 900px;
+      height: 900px;
+      background-color: #ffa21f;
+      border-radius: 50%;
+      position: absolute;
+      left: -200px;
+      top: -300px;
+      z-index: -1;
+      opacity: 0.74;
     }
-    
-    .circulo2 {
-        width: 515px;
-        height: 515px;
-        background-color: #AA2E17;
-        border-radius: 50%;
-        position: absolute;
-        right: 37%; /* Ajustado para não cobrir o CTA */
-        bottom: 10px;
-        z-index: -1;
-        opacity: 0.74;
-    }
-}
 
-.sobremim{
+    .circulo2 {
+      width: 515px;
+      height: 515px;
+      background-color: #aa2e17;
+      border-radius: 50%;
+      position: absolute;
+      right: 37%; /* Ajustado para não cobrir o CTA */
+      bottom: 10px;
+      z-index: -1;
+      opacity: 0.74;
+    }
+  }
+
+  .sobremim {
     background-image: url("../../../public/images/SobreMim-Background.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 405px;
+    height: 477px;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    .areaTexto{
-        width: 62%;
-        height: 100%;
+    justify-content: space-between;
+    .areaTexto {
+      width: 62%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15px;
+
+      h1 {
+        padding-left: 2em;
+        font-style: italic;
+      }
+    }
+
+    .frame {
+      width: 36%;
+      height: 100%;
+
+      img {
+        width: 69%;
+        height: 85%;
+        object-fit: cover;
+        align-self: center;
+        justify-self: center;
+        border-radius: 17px;
+        box-shadow: 0px 0px 12px 3px #00000061;
+
+      }
+    }
+  }
+
+  .contato {
+    background-image: url("../../../public/images/Contato-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 675px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      align-self: center;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .bloco {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(255 255 255);
+      width: 55%;
+      height: 90%;
+      border-radius: 50px;
+      box-shadow: 0px 0px 12px 3px #0000002a;
+
+      h2 {
+        align-self: center;
+      }
+
+      form {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
+        align-items: center;
+        width: 93%;
+        height: 84%;
 
-        h1{
-            padding-left: 2em;
-            align-self: flex-start;
-            font-size: 37px;
-            color: #8C5522;
+        input, textarea {
+          width: 100%;
+          height: 50px;
+          border-radius: 10px;
+          border: 1px black solid;
+          padding-left: 20px;
+          padding-right: 20px;
+          margin-bottom: 20px;
+          font-size: 18px;
         }
 
-        h2{
-            font-size: 18px;
+        textarea{
+            height: 160px;
+            resize: none;
         }
+
+        button {
+            width: 40%;
+            height: 50px;
+            background-color: #8c5522;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+
+          &:hover {
+            background-color: #FFA21FBD;
+            color: #8c5522;
+            transition: all 0.3s ease-in-out;
+          }
+
+        }
+
+      }
     }
-
-    .frame{
-        width: 36%;
-        height: 100%;
-
-        img{
-            width: 69%;
-            height: 85%;
-            object-fit: cover;
-            align-self: center;
-            justify-self: center;
-            border-radius: 17px;
-        }
-    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
