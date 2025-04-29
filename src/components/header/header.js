@@ -1,6 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping} from "@fortawesome/free-solid-svg-icons";
+import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import "./header.scss";
@@ -18,15 +17,12 @@ export default function Header(){
                 </ul>
 
                 <ul id="nav_list2">
-                    <FontAwesomeIcon icon={faCartShopping} id="cart-icon" />
+                    <FaShoppingCart className="item-kart"/>
                     <Link to="/login" className="item_login">Login</Link>
                 </ul>
-
                 
             </nav>
         </header>
     )
 }
-/* fazer a responsividade do bars 
-instalar os icons npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
-*/
+/* fazer a responsividade do bars */
