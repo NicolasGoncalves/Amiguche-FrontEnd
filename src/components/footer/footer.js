@@ -1,10 +1,8 @@
 import React from "react";
-<<<<<<< HEAD
-=======
+
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
- import "./footer.scss";
->>>>>>> 216c979a5af3a105269119c5adbb43687034b003
+import "./footer.scss";
 
 function Footer() {
     return (
