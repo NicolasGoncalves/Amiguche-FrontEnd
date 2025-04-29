@@ -1,4 +1,10 @@
 import React from "react";
+<<<<<<< HEAD
+=======
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+ import "./footer.scss";
+>>>>>>> 216c979a5af3a105269119c5adbb43687034b003
 
 function Footer() {
     return (
@@ -8,8 +14,8 @@ function Footer() {
                 <div className="coluna">
                     <p>Acompanhe as novidades</p>
                     <div className="icons">
-                        <i className="fab fa-instagram"></i>
-                        <i className="fab fa-facebook"></i>
+                        <FaFacebook />
+                        <FaInstagram />
                     </div>
                 </div>
             
@@ -20,8 +26,7 @@ function Footer() {
                 </div>
 
                 <div className="logo-footer">
-                    <img src="" alt="Urso Amigurumi" />
-                    <h3>Amiguche</h3>
+                    <img src="./images/logo2.png" alt="Urso Amigurumi" />
               </div>
 
             </div>

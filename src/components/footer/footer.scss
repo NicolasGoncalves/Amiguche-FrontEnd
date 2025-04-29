@@ -1,0 +1,44 @@
+footer {
+    background-color: #b6381b;
+    color: white;
+    padding: 40px 20px;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .footer-content .coluna {
+    flex: 1;
+    margin: 10px;
+  }
+  
+  .icones i {
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .logo-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-footer img {
+    width: 110px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .logo-footer h3 {
+    font-family: 'Poppins', cursive;
+    font-size: 24px;
+    color: #fffbe0;
+  }
