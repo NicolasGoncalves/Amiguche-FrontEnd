@@ -17,6 +17,10 @@ code {
   font-family: "MontserratAlternates";
   src: url("../public/fonts/MontserratAlternates-SemiBold.ttf");
 }
+@font-face {
+  font-family: "MontserratAlternates-Bold";
+  src: url("../public/fonts/MontserratAlternates-Bold.ttf");
+}
 
 *{
   font-family: "Poppins", sans-serif;

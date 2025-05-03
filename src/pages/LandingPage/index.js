@@ -2,7 +2,11 @@ import "./index.scss";
 
 import React from "react";
 import Header from "../../components/header/header.js";
-import Footer from "../../components/footer/footer.js";
+import Logo from "../../components/logo";
+
+
+import { FaFacebook, FaInstagram } from "react-icons/fa";
+
 
 export default function LandingPage() {
   return (
@@ -65,7 +69,24 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <Footer />
+      <footer >
+        <div className="novidades">
+          <h2>Acompanhe as novidades</h2>
+          <div>
+            <FaFacebook className="icones"/>
+            <FaInstagram className="icones"/>
+          </div>
+        </div>
+
+        <div className="footer-contato">
+          <h2>Entre em contato</h2>
+        </div>
+
+        <Logo imagem={"288px"} fonte={"48px"} style={{ marginBottom: "14em" }}/>
+
+      </footer>
+
+      
     </main>
   );
 }

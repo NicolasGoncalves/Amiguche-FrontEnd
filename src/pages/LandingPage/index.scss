@@ -27,17 +27,18 @@
       flex-direction: column;
       gap: 28px;
       padding: 3%; /* Substitui margin por padding para melhor alinhamento */
+      width: 100%;
 
       .title {
         font-size: 100px;
-        font-weight: 600;
         color: rgb(83, 46, 21);
-        font-family: "MontserratAlternates", sans-serif;
+        font-family: "MontserratAlternates-Bold", sans-serif;
       }
 
       .subtitle {
         font-size: 24px;
         color: rgb(83, 46, 21);
+        // text-align: center;
 
         span {
           font-weight: 700;
@@ -120,7 +121,6 @@
         justify-self: center;
         border-radius: 17px;
         box-shadow: 0px 0px 12px 3px #00000061;
-
       }
     }
   }
@@ -164,7 +164,8 @@
         width: 93%;
         height: 84%;
 
-        input, textarea {
+        input,
+        textarea {
           width: 100%;
           height: 50px;
           border-radius: 10px;
@@ -175,31 +176,72 @@
           font-size: 18px;
         }
 
-        textarea{
-            height: 160px;
-            resize: none;
+        textarea {
+          height: 160px;
+          resize: none;
         }
 
         button {
-            width: 40%;
-            height: 50px;
-            background-color: #8c5522;
-            color: white;
-            font-size: 20px;
-            font-weight: 600;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
+          width: 40%;
+          height: 50px;
+          background-color: #8c5522;
+          color: white;
+          font-size: 20px;
+          font-weight: 600;
+          border-radius: 10px;
+          border: none;
+          cursor: pointer;
 
           &:hover {
-            background-color: #FFA21FBD;
+            background-color: #ffa21fbd;
             color: #8c5522;
             transition: all 0.3s ease-in-out;
           }
-
         }
-
       }
     }
+  }
+
+  footer {
+    background-color: #b6381b;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    height: 35vh;
+    align-items: center;
+    /* padding-top: 30px; */
+    justify-content: space-evenly;
+
+    .novidades {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 30%;
+      height: 45%;
+
+      div {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+        width: 47%;
+
+        .icones {
+          width: 44px;
+          height: auto;
+        }
+      }
+    }
+
+    .footer-contato {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      padding-top: 1%;
+      width: 30%;
+      height: 45%;
+    }
+
   }
 }
