@@ -1,43 +1,42 @@
 import React from "react";
 import { FaGooglePlusG } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-//import './login.css';
+
+import Logo from "../../components/logo";
+import "./index.scss";
 
 export default function Login() {
   return (
-    <div className="container-login">
+    <main className="container-login">
+      <section className="login-header">
+        <Link to="/" className="nav-item">
+          Voltar
+        </Link>
+        <Logo imagem={"6em"} fonte={"25px"} style={{ color: "#4f2c14" }} />
+      </section>
 
-      {/* Logo canto superior direito */}
-      <div className="logo-ami">
-        <img src="./images/logo2.png" alt="Amiguche logo" className="img-logo" />
-      </div>
+      <section className="login-form">
+        <h1 className="login-title">Login</h1>
 
-      {/* Botão Voltar */}
-      <Link to="/" className="nav-item">Voltar</Link>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Senha" required />
 
-      {/* Caixa de login */}
-      <div className="login-box">
-        <h2 className="title">Login</h2>
-        <input type="email" placeholder="Email" className="input-linha" />
-        <input type="password" placeholder="Senha" className="input-linha" />
-        <button className="btn-login">Login</button>
+        <button className="btn-Login">Login</button>
+        <button className="btn-Cadastro">Criar Conta</button>
 
-        <Link to="/cadastro" className="btn-cadastrar">Criar conta</Link>
-
-        <div className="btns-redessociais">
-          <button className="btn-redes">
-            <FaFacebookF />
-            <span className="text-sm">Facebook</span>
+        <div className="links">
+          <button className="btn-links">
+            <FaFacebookF className="icones"/>
+            <span>Facebook</span>
           </button>
 
-          <button className="btn-redes">
-            <FaGooglePlusG />
-            <span className="text-sm">Google</span>
+          <button className="btn-links">
+            <FaGooglePlusG className="icones"/>
+            <span>Google</span>
           </button>
         </div>
-
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

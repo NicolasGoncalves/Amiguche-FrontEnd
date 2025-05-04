@@ -13,20 +13,12 @@ export default function LandingPage() {
     <main className="landingPage">
       <Header />
 
-      <section id="home">
-        <div id="banner">
-          <img src="./images/logobear.png" alt="logo" />
+      <section className="Sec1">
+        <img src="./images/logobear.png" alt="" />
+        <div className="Sec1-texto">
+          <h1>Amiguche</h1>
+          <h2>Cada ponto, um pedacinho de <span>amor</span></h2>
         </div>
-
-        <div id="cta">
-          <h1 className="title">Amiguche</h1>
-          <h3 className="subtitle">
-            Cada ponto, um pedacinho de <span>amor</span>.
-          </h3>
-        </div>
-
-        <div className="circulo2"></div>
-        <div className="circulo"></div>
       </section>
 
       <section className="sobremim">
@@ -47,9 +39,7 @@ export default function LandingPage() {
           </h2>
         </div>
 
-        <div className="frame">
-          <img src="./images/senhora.jpg" alt="Emília Paz" />
-        </div>
+        <img src="./images/senhora.jpg" alt="Emília Paz" />
       </section>
 
       <section></section>

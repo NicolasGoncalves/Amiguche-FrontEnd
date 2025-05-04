@@ -11,77 +11,48 @@
     text-align: justify;
   }
 
-  #home {
+  .Sec1 {
     display: flex;
-    justify-content: center; /* Centraliza os filhos horizontalmente */
-    align-items: center; /* Centraliza os filhos verticalmente */
-    min-height: 675px;
-    width: 100%; /* Ocupa toda a largura da tela */
-    max-width: 3080px; /* Limita a largura máxima */
-    margin: 0 auto; /* Centraliza o container na tela */
-    position: relative; /* Para posicionar os círculos absolutos */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../../public/images/landingpage-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 
-    #cta {
-      width: 35%;
+    img {
+      width: 26em;
+    }
+
+    .Sec1-texto {
       display: flex;
       flex-direction: column;
-      gap: 28px;
-      padding: 3%; /* Substitui margin por padding para melhor alinhamento */
-      width: 100%;
+      justify-content: center;
+      align-self: start;
+      gap: 10px;
+      width: 29%;
+      height: 100%;
 
-      .title {
-        font-size: 100px;
-        color: rgb(83, 46, 21);
+      h1 {
         font-family: "MontserratAlternates-Bold", sans-serif;
+        font-size: 100px;
+        color: #532e15;
       }
 
-      .subtitle {
+      h2 {
         font-size: 24px;
-        color: rgb(83, 46, 21);
-        // text-align: center;
+        color: #532e15;
+        padding-left: 6px;
 
         span {
           font-weight: 700;
-          color: rgb(112, 53, 14);
+          color: #70350e;
         }
       }
-    }
-
-    #banner {
-      width: 35%;
-      display: flex;
-      justify-content: center; /* Centraliza a imagem horizontalmente */
-      align-items: center; /* Centraliza a imagem verticalmente */
-
-      img {
-        width: 100%; /* Ajusta a imagem ao container */
-        max-width: 400px; /* Limita o tamanho da imagem */
-        height: auto;
-      }
-    }
-
-    .circulo {
-      width: 900px;
-      height: 900px;
-      background-color: #ffa21f;
-      border-radius: 50%;
-      position: absolute;
-      left: -200px;
-      top: -300px;
-      z-index: -1;
-      opacity: 0.74;
-    }
-
-    .circulo2 {
-      width: 515px;
-      height: 515px;
-      background-color: #aa2e17;
-      border-radius: 50%;
-      position: absolute;
-      right: 37%; /* Ajustado para não cobrir o CTA */
-      bottom: 10px;
-      z-index: -1;
-      opacity: 0.74;
     }
   }
 
@@ -91,17 +62,20 @@
     background-size: cover;
     background-position: center;
     height: 477px;
-
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
     .areaTexto {
-      width: 62%;
+      width: 46%;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 15px;
+      padding-right: 37px;
 
       h1 {
         padding-left: 2em;
@@ -109,19 +83,12 @@
       }
     }
 
-    .frame {
-      width: 36%;
-      height: 100%;
-
-      img {
-        width: 69%;
-        height: 85%;
-        object-fit: cover;
-        align-self: center;
-        justify-self: center;
-        border-radius: 17px;
-        box-shadow: 0px 0px 12px 3px #00000061;
-      }
+    img {
+      width: 20em;
+      height: 16em;
+      object-fit: cover;
+      border-radius: 17px;
+      box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.3803921569);
     }
   }
 
@@ -147,10 +114,11 @@
       justify-content: center;
       align-items: center;
       background-color: rgb(255 255 255);
-      width: 55%;
-      height: 90%;
+      width: 50%;
+      height: 69%;
       border-radius: 50px;
       box-shadow: 0px 0px 12px 3px #0000002a;
+      gap: 18px;
 
       h2 {
         align-self: center;
@@ -159,7 +127,7 @@
       form {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        gap: 5px;
         align-items: center;
         width: 93%;
         height: 84%;
@@ -242,6 +210,5 @@
       width: 30%;
       height: 45%;
     }
-
   }
 }
