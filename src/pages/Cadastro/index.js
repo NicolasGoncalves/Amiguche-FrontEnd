@@ -1,45 +1,36 @@
 import React from "react";
+import Header2 from "../../components/header2";
 import { Link } from "react-router-dom";
 
+import "./index.scss";
+
 function Cadastro() {
-    return (
-        <div className='conatainer-cadastro'>
-            <div className='logo-ami'>
-                <img src = "./images/logo2.png" alt="Amiguche logo" className="img-logo" />
-            </div>
+  return (
+    <main className="conatainer-cadastro">
+      <Header2 link="/login" />
 
-            <Link to="/login" className='nav-item'>
-                Voltar
-            </Link>
-
-            <div className="login-box">
-                <h2 className="title">Cadastro</h2>
-                <input
-                    type="nomecompleto"
-                    placeholder="Nome Completo"
-                    className="input-linha"
-                />
-                <input
-                    type="email"
-                    placeholder="Email"
-                    className="input-linha"
-                />
-                <input
-                    type="senha"
-                    placeholder="Senha"
-                    className="input-linha"
-                />
-                <input
-                    type="senha"
-                    placeholder="Confirmar Senha"
-                    className="input-linha"
-                />
-                <button className="btn-login">
-                    Cadastrar-se
-                </button>
-            </div>
-        </div>
-    )
+      <section className="login-box">
+        <h2 className="title">Cadastro</h2>
+        <input
+          type="nomecompleto"
+          placeholder="Nome Completo"
+          className="input-linha"
+          required
+        />
+        <input type="email" placeholder="Email" className="input-linha" required/>
+        <input type="senha" placeholder="Senha" className="input-linha" />
+        <input
+          type="senha"
+          placeholder="Confirmar Senha"
+          className="input-linha"
+          required
+        />
+        <button className="btn-Login">
+            <Link>Cadastrar-se</Link> 
+        </button>
+      </section>
+    </main>
+  );
 }
 
 export default Cadastro;

@@ -113,7 +113,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: rgb(255 255 255);
+      background-color: #ffffff;
       width: 50%;
       height: 69%;
       border-radius: 50px;
@@ -147,6 +147,7 @@
         textarea {
           height: 160px;
           resize: none;
+          padding-top: 13px;
         }
 
         button {

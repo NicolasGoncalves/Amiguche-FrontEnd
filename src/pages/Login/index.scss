@@ -11,23 +11,6 @@
   background-size: 100vw 101vh;
   background-position: center;
 
-  .login-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    width: 90%;
-
-    .nav-item {
-        font-style: normal;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-size: 19px;
-        text-decoration: none;
-        color: #452508;
-    }
-  }
-
   .login-form {
     display: flex;
     flex-direction: column;
@@ -36,7 +19,7 @@
     width: 37%;
     height: 70%;
     box-shadow: 0px 0px 12px 3px #0000002a;
-    background-color: #FFA21FBD;
+    background-color: #ffa21fbd;
     border-radius: 50px;
 
     .login-title {
@@ -48,64 +31,73 @@
       margin-bottom: 20px;
     }
 
-    input{
-        width: 80%;
-        height: 50px;
-        margin-bottom: 20px;
-        background-color: #F9F9F9;
-        border: none;
-        border-radius: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-bottom: 20px;
-        font-size: 18px;
-        box-shadow: 0px 0px 12px 3px #0000002a;
-
-    }
-    
-    input:focus{
-        outline: none;
-        border: none;    
+    input {
+      width: 80%;
+      height: 50px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+      border: none;
+      border-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      box-shadow: 0px 0px 12px 3px #0000002a;
     }
 
-    
-
-    .btn-Login{
-        width: 40%;
-        height: 37px;
-        border: none;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-size: 15px;
-        color: #F9F9F9;
-        border-radius: 10px;
-        background-color: #8C5522;
-        margin-bottom: 10px;
-        
+    input:focus {
+      outline: none;
+      border: none;
     }
 
-    .btn-Cadastro{
-        width: 40%;
-        height: 37px;
-        border: none;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-size: 15px;
-        color: #8C5522;
-        border-radius: 10px;
-        background-color: #00000000;
-        border: 2px solid #8C5522;
-        margin-bottom: 10px;
+    a {
+      width: 40%;
+      height: 37px;
+      border: none;
+      border-radius: 10px;
+      //background-color: #8c5522;
+      margin-bottom: 10px;
     }
 
-    button:hover{
-        width: 41%;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
+    .btn-Login {
+      width: 100%;
+      height: 37px;
+      border: none;
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #f9f9f9;
+      border-radius: 10px;
+      background-color: #8c5522;
+      // margin-bottom: 10px;
+    }
+
+    .btn-Cadastro {
+      width: 100%;
+      height: 37px;
+      border: none;
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #8c5522;
+      border-radius: 10px;
+      background-color: #00000000;
+      border: 2px solid #8c5522;
+      margin-bottom: 10px;
+    }
+
+    a:hover {
+      width: 41%;
+      transition: all 0.3s ease-in-out;
+    }
+
+    button:hover {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
     }
   }
 
-  .links{
+  .links {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -114,25 +106,32 @@
     height: 10%;
 
     .icones {
-        width: 20px;
-        height: auto;
-      }
+      width: 20px;
+      height: auto;
+    }
 
-    .btn-links{
-        width: 40%;
-        height: 37px;
-        border: none;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-size: 15px;
-        color: #F9F9F9;
-        border-radius: 15px;
-        background-color: #8C5522;
+    .btn-links {
+      width: 40%;
+      height: 37px;
+      border: none;
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #f9f9f9;
+      border-radius: 15px;
+      background-color: #8c5522;
+
+      a{
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         gap: 2px;
+        text-decoration: none;
+        color: #f9f9f9;
+      }
     }
   }
 }
