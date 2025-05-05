@@ -1,10 +1,14 @@
 import React from 'react';
 
+import HeaderAdm from "../../components/headerAdm"
 
 export default function ListaPedidos() {
     
     return(
-        <section className="lista-pedidos">
+        <main className="lista-pedidos">
+
+            <HeaderAdm/>
+
             <h1>Lista de Pedidos</h1>
             <section className="panel">
                 <table>
@@ -26,6 +30,6 @@ export default function ListaPedidos() {
                     </tbody>
                 </table>
             </section>
-        </section>
+        </main>
     )
 }
