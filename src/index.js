@@ -8,6 +8,8 @@ import App from './App';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
+import GerenciaProdutos from './pages/GerenciaProd';
+import GerenciaPedidos from './pages/GerenciaPedidos';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +20,8 @@ root.render(
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path='/cadastro' element={<Cadastro />}/>
+      <Route path='/admin/produtos' element={<GerenciaProdutos />} />
+      <Route path='/admin/pedidos' element={<GerenciaPedidos />} />
     </Routes>
   </BrowserRouter>
 
