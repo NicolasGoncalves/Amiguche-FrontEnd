@@ -8,6 +8,8 @@ import App from './App';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
+import GerenciaProdutos from './pages/GerenciaProdutos';
+import ListaPedidos from './pages/ListaPedidos';
 
 import HeaderAdm from './components/headerAdm';
 
@@ -21,6 +23,8 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path='/cadastro' element={<Cadastro />}/>
       <Route path='/header' element={<HeaderAdm />}/>
+      <Route path='/admin/pedidos' element={<ListaPedidos/>} />
+      <Route path='/admin/produtos' element={<GerenciaProdutos/>} />
     </Routes>
   </BrowserRouter>
 
