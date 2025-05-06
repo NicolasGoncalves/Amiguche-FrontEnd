@@ -11,7 +11,7 @@ import Cadastro from './pages/Cadastro';
 import GerenciaProdutos from './pages/GerenciaProdutos';
 import ListaPedidos from './pages/ListaPedidos';
 
-import HeaderAdm from './components/headerAdm';
+import Produto from './components/produto';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +22,7 @@ root.render(
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path='/cadastro' element={<Cadastro />}/>
-      <Route path='/header' element={<HeaderAdm />}/>
+      <Route path='/c' element={<Produto />}/>
       <Route path='/admin/pedidos' element={<ListaPedidos/>} />
       <Route path='/admin/produtos' element={<GerenciaProdutos/>} />
     </Routes>

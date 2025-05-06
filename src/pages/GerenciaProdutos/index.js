@@ -1,13 +1,11 @@
 import React from 'react';
 import HeaderAdm from '../../components/headerAdm'
 
-import { useState } from 'react';
-
 
 export default function GerenciaProdutos(){
     return (
         <main className='gerencia-produtos'>
-            <HeaderAdm/>
+            <HeaderAdm page="produtos"/>
 
                 <h1>Produtos</h1>
                 <section className='panel'>

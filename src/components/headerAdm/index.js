@@ -1,24 +1,39 @@
 import Logo from "../logo/index.js";
 import { Link } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
+
 import "./index.scss";
 
-export default function HeaderAdm() {
+export default function HeaderAdm(props) {
+  const [produtos, setProdutos] = useState("btnArea");
+  const [pedidos, setPedidos] = useState("btnArea");
+
+  useEffect(() => {
+    if (props.page === "produtos") {
+      setProdutos("btnAtivo");
+      setPedidos("btnArea");
+    } else if (props.page === "pedidos") {
+      setPedidos("btnAtivo");
+      setProdutos("btnArea");
+    }
+  },[props.page]);
+
   return (
     <section className="headerAdm">
       <Logo style={{ flexDirection: "row" }} imagem="75px" fonte="27px" />
 
       <div className="botoes">
-        <Link className="link">
-          <button className="btnArea">Gerenciamento de Produtos</button>
+        <Link to="/admin/produtos" className="link">
+          <button className={produtos}>Gerenciamento de Produtos</button>
         </Link>
 
-        <Link className="link">
-          <button className="btnArea">Lista de Pedidos</button>
+        <Link to="/admin/pedidos" className="link">
+          <button className={pedidos}>Lista de Pedidos</button>
         </Link>
       </div>
 
-      <div className="adm">
+      <div className="admin">
         <FaUserAlt className="icone"/>
         <h2>Admin</h2>
       </div>

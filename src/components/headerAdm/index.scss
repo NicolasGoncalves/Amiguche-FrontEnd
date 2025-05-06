@@ -27,11 +27,11 @@
       height: 50%;
 
       .btnArea {
+        background-color: #ffffff00;
+        color: #f9f9f9;
         border: 2px solid #f9f9f9;
         border-radius: 20px;
         padding: 5px 10px;
-        background-color: #ffffff00;
-        color: #f9f9f9;
         font-size: 12px;
         font-weight: 600;
         height: 100%;
@@ -43,6 +43,21 @@
         border: 2px solid #452508;
         cursor: pointer;
         transition: 0.3s ease-in-out;
+      }
+
+      .btnAtivo{
+        background-color: #ffb854;
+        color: #452508;
+        border: 2px solid #452508;
+        border-radius: 20px;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        height: 100%;
+      }
+
+      .btnAtivo:hover{
+        cursor: pointer;
       }
     }
   }
