@@ -9,11 +9,11 @@ export default function HeaderAdm() {
       <Logo style={{ flexDirection: "row" }} imagem="75px" fonte="27px" />
 
       <div className="botoes">
-        <Link className="link">
+        <Link to="/admin/produtos" className="link">
           <button className="btnArea">Gerenciamento de Produtos</button>
         </Link>
 
-        <Link className="link">
+        <Link to="/admin/pedidos" className="link">
           <button className="btnArea">Lista de Pedidos</button>
         </Link>
       </div>
