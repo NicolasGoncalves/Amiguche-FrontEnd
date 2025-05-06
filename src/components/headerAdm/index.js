@@ -30,7 +30,10 @@ export default function HeaderAdm(props) {
 
         <Link to="/admin/pedidos" className="link">
           <button className={pedidos}>Lista de Pedidos</button>
+
         </Link>
+
+       
       </div>
 
       <div className="admin">
