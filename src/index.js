@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import GerenciaProdutos from './pages/GerenciaProdutos';
 import ListaPedidos from './pages/ListaPedidos';
+import Admin from './pages/Admin';
 
 import Produto from './components/produto';
 
@@ -25,6 +26,7 @@ root.render(
       <Route path='/c' element={<Produto />}/>
       <Route path='/admin/pedidos' element={<ListaPedidos/>} />
       <Route path='/admin/produtos' element={<GerenciaProdutos/>} />
+      <Route path='/admin' element={<Admin/>} />
     </Routes>
   </BrowserRouter>
 

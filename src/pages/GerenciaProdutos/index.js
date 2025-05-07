@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderAdm from '../../components/headerAdm'
+import { Link } from 'react-router-dom';
 import './index.scss'
 
 import { useState } from 'react';
@@ -9,8 +10,14 @@ export default function GerenciaProdutos() {
     return (
         <main className='gerencia-produtos'>
             <HeaderAdm page="produtos"/>
-
-            <h1>Produtos</h1>
+            <section className="titulo">
+                <div>
+                    <Link to="/admin">Voltar</Link>
+                    <h1>Produtos</h1>
+                    
+                </div>
+            </section>
+            
             <section className="panel">
                 <div className="tabela-container">
                     <table>

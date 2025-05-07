@@ -1,0 +1,44 @@
+.slide-cart {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 540px;
+    height: 100vh;
+    background-color: #fff9eb;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    transition: right 0.3s ease;
+    z-index: 999;
+    border-radius: 10px;
+
+    h2 {
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 26px;
+      font-style: normal;
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      color: #452508;
+    }
+  }
+  .slide-cart.open {
+    right: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    float: right;
+    cursor: pointer;
+  }
+  
+  .checkout-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
