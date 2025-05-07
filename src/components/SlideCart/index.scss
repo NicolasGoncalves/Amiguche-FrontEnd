@@ -11,11 +11,30 @@
     z-index: 999;
     border-radius: 10px;
 
+    hr {
+      border: none;
+      height: 2px;
+      background-color: rgb(179, 170, 166);
+      margin: 20px 0;
+      opacity: 0.5;
+    }
+
     h2 {
       text-align: center;
       margin-top: 1rem;
       margin-bottom: 1rem;
       font-size: 26px;
+      font-style: normal;
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      color: #452508;
+    }
+
+    h3 {
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 20px;
       font-style: normal;
       font-family: "Poppins", sans-serif;
       font-weight: 700;
@@ -33,12 +52,31 @@
     float: right;
     cursor: pointer;
   }
-  
-  .checkout-btn {
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
     margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
+  
+    .checkout-btn {
+      font-size: 18px;
+      margin-top: 0.2rem;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      background-color: #cc6840;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   }
+
+  .box-produtos {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 513px;
+    background-color: #fffefd;
+
+  }
+  
+  
