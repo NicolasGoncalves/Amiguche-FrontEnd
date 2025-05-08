@@ -84,6 +84,8 @@ export default function GerenciaProdutos() {
         <div>
           <Link to="/admin">Voltar</Link>
           <h1>Produtos</h1>
+          <button 
+          onClick={() => setIsOpen(true)} className="btn-cadastro">Novo Produto</button>
         </div>
       </section>
 
