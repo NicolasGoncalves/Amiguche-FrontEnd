@@ -31,7 +31,7 @@ export default function LandingPage() {
     <main className="landingPage">
       <Header />
 
-      <section className="Sec1">
+      <section id="home" className="Sec1">
         <img src="./images/logobear.png" alt="" />
         <div className="Sec1-texto">
           <h1>Amiguche</h1>
@@ -41,7 +41,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="sobremim">
+      <section id="sobremim" className="sobremim">
         <div className="areaTexto">
           <h1 className="titleSection">Sobre mim</h1>
           <h2 className="texto">
@@ -63,7 +63,7 @@ export default function LandingPage() {
       </section>
 
       {/* Section pro produtos */}
-      <section className="produtos">
+      <section id="produtos" className="produtos">
         <h1 className="titulo">Produtos</h1>
         <div className="lista-produtos">
           {produtos.map((item) => (
@@ -75,7 +75,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="contato">
+      <section id="contato" className="contato">
         <h1 className="titulo">Contato</h1>
 
         <div className="bloco">

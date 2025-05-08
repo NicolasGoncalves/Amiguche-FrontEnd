@@ -39,16 +39,32 @@ header {
         font-weight: 600;
     }
     
-    .nav_item a {
-        text-decoration: none;
-        color: rgb(83, 46, 21);
-        font-weight: 600;
-    }
-    
-    .nav_item.active a {
-        color: #1d1d1d;
-        border-bottom: 3px solid rgb(83, 46, 21);
-    }
+    .nav_item {
+        position: relative;
+        
+        a {
+          text-decoration: none;
+          color: rgb(83, 46, 21);
+          font-weight: 600;
+          padding: 5px 0;
+          display: inline-block;
+      
+          &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            height: 3px;
+            width: 0%;
+            background-color: rgb(83, 46, 21);
+            transition: width 0.3s ease;
+          }
+        }
+      
+        &.active a::after {
+          width: 100%;
+        }
+      }
 
     .item-kart {
         font-size: 25px;
