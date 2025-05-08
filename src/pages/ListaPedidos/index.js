@@ -7,7 +7,7 @@ export default function ListaPedidos() {
 
     return (
         <main className="lista-pedidos">
-            <HeaderAdm />
+            <HeaderAdm page="pedidos"/>
             <h1>Lista de Pedidos</h1>
             <section className="panel">
                 <div className="tabela-container">

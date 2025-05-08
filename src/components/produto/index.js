@@ -40,7 +40,7 @@ export default function Produto(props) {
   useEffect(() => {
     if (props.id) {
       setNome(buscarNome());
-      setPreco(`R$ ${parseFloat(buscarVariante.preco)}`);
+      setPreco(`R$ ${buscarVariante.preco}`);
       if(buscarImagem()==null) 
         setImagem(buscarImagem());
     }
