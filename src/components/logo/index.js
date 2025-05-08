@@ -12,7 +12,7 @@ export default function Logo(props) {
 
   return (
     <div className="Component-logo" style={props.style}>
-      <img src="./images/logobear.png" alt="Logo" style={{ width: imagem }} />
+      <img src="/images/logobear.png" alt="Logo" style={{ width: imagem }} />
       <h2 style={{ fontSize: fonte }}>Amiguche</h2>
     </div>
   );

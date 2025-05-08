@@ -16,7 +16,7 @@ export default function Login() {
         <input type="email" placeholder="Email" required />
         <input type="password" placeholder="Senha" required />
 
-        <Link to="/" className="btn-Link">
+        <Link to="/admin" className="btn-Link">
           <button className="btn-Login">Login</button>
         </Link>
         <Link to="/cadastro">

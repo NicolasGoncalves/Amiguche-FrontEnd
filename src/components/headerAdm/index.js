@@ -21,7 +21,9 @@ export default function HeaderAdm(props) {
 
   return (
     <section className="headerAdm">
-      <Logo style={{ flexDirection: "row" }} imagem="75px" fonte="27px" />
+      <Link to="/">
+        <Logo style={{ flexDirection: "row" }} imagem="75px" fonte="27px" />
+      </Link>
 
       <div className="botoes">
         <Link to="/admin/produtos" className="link">
