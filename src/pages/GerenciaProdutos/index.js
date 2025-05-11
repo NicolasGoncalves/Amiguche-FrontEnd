@@ -29,12 +29,12 @@ export default function GerenciaProdutos() {
     }
   }
 
-  async function buscarImagem(id) {
+  async function buscarImagem(id_produto, id_variante) {
+    if (!id_variante) return null;
     try {
-      const variante = await buscarVariante(id);
-      const url = `http://localhost:5000/imagem/produto/${id}/variante/${variante.id_variantes}`;
+      const url = `http://localhost:5000/imagem/produto/${id_produto}/variante/${id_variante}`;
       const resp = await axios.get(url);
-      return resp.data.imagens;
+      return resp.data;
     } catch (err) {
       console.error("Erro ao buscar imagem:", err);
       return null;
@@ -47,47 +47,36 @@ export default function GerenciaProdutos() {
     const lista = await Promise.all(
       produtosBase.map(async (produto) => {
         const variante = await buscarVariante(produto.id_produto);
-        const imagem = await buscarImagem(produto.id_produto);
+        const imagemData = await buscarImagem(produto.id_produto, variante?.id_variantes);
 
         return {
           id: produto.id_produto,
           nome: produto.nome,
           preco: variante?.preco ?? "N/A",
           descricao: variante?.descricao ?? "Sem descrição",
-          imagem: imagem ?? "",
+          imagem: imagemData?.imagens ?? null,
+          tipo: imagemData?.tipo ?? null,
         };
       })
     );
-
-    //console.log("imagem: "+await buscarImagem(1))
-    //console.log("lista", lista.imagem);
 
     return lista;
   }
 
   // Coisas de alteração e Cadastro de produto
 
-  function alterarProduto(id) {
-    setIsOpen(true);
-    setIdProduto(id);
-  }  
-
-  function cadastrarProduto() {
-    setIsOpen(true);
-    setIdProduto(0);
+  async function carregar() {
+    const lista = await montarProdutos();
+    // Evita setar o estado se a lista for a mesma
+    if (produtos !== lista){
+      setProdutos(lista);
+    }
+       
   }
 
   useEffect(() => {
-    const carregar = async () => {
-      const lista = await montarProdutos();
-  
-      // Evita setar o estado se a lista for a mesma
-      if (JSON.stringify(produtos) !== JSON.stringify(lista)) {
-        setProdutos(lista);
-      }
-    }
-
     carregar();
+
   }, []);
 
   return (
@@ -95,14 +84,18 @@ export default function GerenciaProdutos() {
       <HeaderAdm page="produtos" />
       <DetProduto
         id={idProduto}
-        onClick={cadastrarProduto}
-        onClose={() => setIsOpen(false)}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false) }
       />
       <section className="titulo">
         <div>
           <Link to="/admin">Voltar</Link>
           <h1>Produtos</h1>
-          <button className="btn-cadastro" onClick={() => setIsOpen(true)}>
+          <button className="btn-cadastro" onClick={() => {
+            setIdProduto(0);
+            console.log(idProduto)
+            setIsOpen(true);
+            console.log("Teste btn")}}>
             Novo Produto
           </button>
         </div>
@@ -127,16 +120,18 @@ export default function GerenciaProdutos() {
                 </tr>
               ) : (
                 produtos.map((item) => (
-                  <tr>
+                  <tr key={item.id}>
                     <td>{item.nome}</td>
                     <td>R$ {item.preco}</td>
                     <td>{item.descricao}</td>
                     <td>
-                      <img src={item.imagem} alt="AmigurumiGirafa.png" />
+                      <img src={`http://localhost:5000/${item.imagem}`} alt={item.nome} />
                     </td>
                     <td>
                       <button
-                        onClick={alterarProduto(item.id)}
+                        onClick={()=> 
+                          {setIdProduto(item.id)
+                            setIsOpen(true)} }
                         className="btn-editar"
                       >
                         Editar

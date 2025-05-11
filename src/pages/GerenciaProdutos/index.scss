@@ -79,6 +79,13 @@
     td {
       padding: 12px;
       border-bottom: 1px solid #eee;
+
+      img{
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius:10px;
+      }
     }
 
     tr:hover {

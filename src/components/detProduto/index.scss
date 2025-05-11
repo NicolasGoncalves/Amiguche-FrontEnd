@@ -8,11 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1;
 }
 
 .modal-content {
-  z-index: 1000;
+  z-index: 2;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -102,64 +102,27 @@
     .sec2-img {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      width: 40%;
-      height: 80%;
+      width: 22em;
+      height: 21em;
+      background-color: #d9d9d9;
+      border: 1px solid #0000006b;
+      margin-bottom: 10%;
 
-      div {
-        width: 22em;
-        height: 21em;
-        background-color: #d9d9d9;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        border: 1px solid #0000006b;
-      }
-
-      h1 {
-        font-weight: 600;
-        color: #b0b0b0;
-        text-align: center;
-        width: 60%;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
+      img{
+        max-width: 22em;
+        max-height: 21em;
         object-fit: cover;
       }
 
-      input {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 200px;
-        height: 45px;
-        background-color: rgba(0, 0, 0, 0);
-        border: 3px solid black;
-        border-radius: 25px;
-        font-family: "Poppins", sans-serif;
-        font-size: 20px;
-        font-weight: 700;
-        color: black;
-        cursor: pointer;
-        gap: 5px;
-
-        img {
-          width: 15%;
-          height: auto;
-          object-fit: cover;
-        }
+      input[type=file]{
+        display: none;
       }
 
-        button:hover {
-            background-color: #ffa21fbd;
-            color: #452508;
-            transition: 0.3s ease-in-out;
-        }
+      &:hover{
+        cursor: pointer;
+      }
     }
 
     .sec2-info {
