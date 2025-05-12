@@ -8,6 +8,7 @@ import Logo from "../../components/logo";
 import Produto from "../../components/produto";
 
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { ToastContainer } from "react-toastify";
 
 
 export default function LandingPage() {
@@ -30,6 +31,7 @@ export default function LandingPage() {
   return (
     <main className="landingPage">
       <Header />
+      <ToastContainer/>
 
       <section id="home" className="Sec1">
         <img src="./images/logobear.png" alt="" />

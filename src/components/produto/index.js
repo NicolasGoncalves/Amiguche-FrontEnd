@@ -3,6 +3,9 @@ import { useState } from "react";
 import DetProduto from "../detProduto";
 import "./index.scss";
 
+import { ToastContainer,toast } from "react-toastify";
+import { addToCart } from "../../services/carrinhoService.js";
+
 import axios from "axios";
 
 export default function Produto(props) {
@@ -10,6 +13,18 @@ export default function Produto(props) {
   const [imagem, setImagem] = useState("./images/Boneca-girafa.png");
   const [preco, setPreco] = useState("R$ 90,00");
   const [isOpen, setIsOpen] = useState(false);
+
+  function addCarrinho(){
+    if (props.id) {
+      addToCart({
+        imagem:imagem,
+        nome:nome,
+        preco:preco,
+        quantidade:1
+      })
+      toast("Produto adicionado ao carrinho");
+    }
+  }
 
   async function buscarNome() {
     let url = "http://localhost:5000/produto/" + props.id;
@@ -37,6 +52,7 @@ export default function Produto(props) {
       return null;
     }
   }
+
   useEffect(() => {
     if (props.id) {
       setNome(buscarNome());
@@ -56,7 +72,7 @@ export default function Produto(props) {
       </div>
 
       <div className="pos2">
-        <button className="btn1">Comprar</button>
+        <button className="btn1" onClick={addCarrinho}>Comprar</button>
         <button className="btn2">Veja Mais</button>
       </div>
     </div>
