@@ -2,6 +2,7 @@ import React from "react";
 import DetProduto from "../../components/detProduto";
 import HeaderAdm from "../../components/headerAdm";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer} from "react-toastify";
 import axios from "axios";
 import "./index.scss";
 
@@ -11,6 +12,8 @@ export default function GerenciaProdutos() {
   const [isOpen, setIsOpen] = useState(false);
   const [produtos, setProdutos] = useState([]);
   const [idProduto, setIdProduto] = useState(0);
+
+  // Exibição dos dados
 
   async function buscarProdutos() {
     let url = "http://localhost:5000/produto";
@@ -63,17 +66,30 @@ export default function GerenciaProdutos() {
     return lista;
   }
 
-  // Coisas de alteração e Cadastro de produto
-
+  
   async function carregar() {
     const lista = await montarProdutos();
     // Evita setar o estado se a lista for a mesma
     if (produtos !== lista){
       setProdutos(lista);
     }
-       
+    
   }
 
+  // Coisas de alteração e Cadastro de produto
+
+  // Excluir Produto
+  async function excluirProduto(id) {
+    let url = "http://localhost:5000/produto/" + id;
+    let resp=await axios.delete(url);
+    if (resp.status === 200) {
+      toast("Produto excluído com sucesso");
+      carregar();
+    } else {
+      toast.error("Erro ao excluir produto");
+    }
+  }
+  
   useEffect(() => {
     carregar();
 
@@ -81,6 +97,7 @@ export default function GerenciaProdutos() {
 
   return (
     <main className="gerencia-produtos">
+      <ToastContainer/>
       <HeaderAdm page="produtos" />
       <DetProduto
         id={idProduto}
@@ -136,7 +153,7 @@ export default function GerenciaProdutos() {
                       >
                         Editar
                       </button>
-                      <button className="btn-excluir">Excluir</button>
+                      <button className="btn-excluir" onClick={()=>excluirProduto(item.id)}>Excluir</button>
                     </td>
                   </tr>
                 ))
