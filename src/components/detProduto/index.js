@@ -143,14 +143,18 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
     let vari = await alterarVariantes(id);
     let imag = await alterarImagem(id);
     let resp = await axios.put(url, {
-      nome: nome,
+      nome: nome
     });
     if (resp.status === 200 && vari === 200 && imag === 200)
       toast.success("Produto alterado com sucesso");
   }
 
   async function alterarVariantes(id) {
-    let url = "http://localhost:5000/variantes/" + id;
+    let idVariante = await buscarVariante(id);
+    let url = "http://localhost:5000/variantes/" + idVariante.id_variantes;
+    console.log("Alterando variante: ", id);
+    console.log("Descrição: ", descricao);
+    console.log("Preço: ", preco);
     let resp = await axios.put(url, {
       descricao: descricao,
       preco: parseFloat(preco),
@@ -253,9 +257,9 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
         <section className="detalhes-produto">
           <div className="sec1">
             <div>
-              <Link>
+              {/* <Link> */}
                 <h2 onClick={onClose}>Voltar</h2>
-              </Link>
+              {/* </Link> */}
               <h1>Detalhes do Produto</h1>
             </div>
             <hr />
@@ -330,7 +334,6 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
               <button
                 onClick={() => {
                   alterarProduto(props.id);
-                  onClose();
                 }}
               >
                 Alterar
@@ -340,7 +343,6 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
               <button
                 onClick={() => {
                   excluirProduto(props.id);
-                  onClose();
                 }}
               >
                 Excluir
