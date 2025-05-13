@@ -4,28 +4,25 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 import "./index.scss";
+import { toast, ToastContainer } from "react-toastify";
+import { NumericFormat } from "react-number-format";
 
 export default function DetProduto({ isOpen, onClose, ...props }) {
-  //Aba
-  const [btn, setBtn] = useState(<button>Salvar</button>);
-
   //Produto
-  const [nome, setNome] = useState("Amigurumi");
-  const [preco, setPreco] = useState(12.34);
-  const [descricao, setDescricao] = useState("Descrição do produto");
+  const [nome, setNome] = useState("");
+  const [preco, setPreco] = useState("");
+  const [descricao, setDescricao] = useState("");
   const [img, setImage] = useState();
 
   useEffect(() => {
     if (props.id !== 0) {
       montarProduto();
-      setBtn(<button /* onClick={alterarProduto} */>Alterar</button>);
     } else {
       // novo produto
-      setNome('');
-      setPreco('');
-      setDescricao('');
+      setNome("");
+      setPreco("");
+      setDescricao("");
       setImage(undefined);
-      setBtn(<button onClick={cadastrarProduto}>Cadastrar</button>);
     }
   }, [props.id]);
 
@@ -47,7 +44,7 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
     }
   }
 
-  async function buscarImagem() {
+  async function buscarImagemProdutoVariante() {
     try {
       const variante = await buscarVariante(props.id);
       const url = `http://localhost:5000/imagem/produto/${props.id}/variante/${variante.id_variantes}`;
@@ -59,11 +56,30 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
     }
   }
 
+  async function buscarImagemProduto(id) {
+    try {
+      const url = `http://localhost:5000/imagem/produto/${id}`;
+      const resp = await axios.get(url);
+      return resp.data;
+    } catch (err) {
+      console.error("Erro ao buscar imagem:", err);
+      return null;
+    }
+  }
+
   async function montarProduto() {
     setNome(await buscarNome());
-    setPreco(buscarVariante().preco);
-    setDescricao(buscarVariante().descricao);
-    setImage(buscarImagem);
+
+    const variante = await buscarVariante();
+    if (variante) {
+      setPreco(variante.preco);
+      setDescricao(variante.descricao);
+    }
+
+    const imagem = await buscarImagemProdutoVariante();
+    if (imagem && typeof imagem === "string") {
+      setImage(`http://localhost:5000/${imagem}`);
+    }
   }
 
   //Bloco de Imagem
@@ -83,32 +99,156 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
 
   //Cadastro
   async function cadastrarProduto() {
-    let urlProduto = "http://localhost:5000/produto"; //nome
-    let urlVariante = "http://localhost:5000/variantes"; // Preço e Descrição
+    try {
+      let urlProduto = "http://localhost:5000/produto"; //nome
+      let urlVariante = "http://localhost:5000/variantes"; // Preço e Descrição
 
-    let respProduto = await axios.post(urlProduto, {
-      nome: nome
+      let respProduto = await axios.post(urlProduto, {
+        nome: nome,
+      });
+
+      let respVariante = await axios.post(urlVariante, {
+        descricao: descricao,
+        preco: parseFloat(preco),
+        id: respProduto.data.novoId,
+      });
+
+      await cadastrarImagem(respProduto.data.novoId, respVariante.data.novoId);
+
+      toast.success("Produto cadastrado com sucesso!");
+      setNome("");
+      setPreco("");
+      setDescricao("");
+      setImage(undefined);
+    } catch (err) {
+      console.error("Erro ao cadastrar produto:", err);
+    }
+  }
+
+  async function cadastrarImagem(idProduto, idVariante) {
+    if (img && typeof img !== "string") {
+      const urlImagem = `http://localhost:5000/imagem/${idProduto}/${idVariante}`;
+      const imagemForm = new FormData();
+      imagemForm.append("imagem", img);
+
+      await axios.post(urlImagem, imagemForm, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    }
+  }
+
+  //Alterar produto
+  async function alterarProduto(id) {
+    let url = "http://localhost:5000/produto/" + id;
+    let vari = await alterarVariantes(id);
+    let imag = await alterarImagem(id);
+    let resp = await axios.put(url, {
+      nome: nome,
     });
+    if (resp.status === 200 && vari === 200 && imag === 200)
+      toast.success("Produto alterado com sucesso");
+  }
 
-    let respVariante = await axios.post(urlVariante, {
+  async function alterarVariantes(id) {
+    let url = "http://localhost:5000/variantes/" + id;
+    let resp = await axios.put(url, {
       descricao: descricao,
-      preco: preco,
-      id: respProduto.data.novoId
+      preco: parseFloat(preco),
+      id: id,
     });
+    return resp.status;
+  }
 
-    let urlImagem = `http://localhost:5000//imagem/${respProduto.data.novoId}/${respVariante.data.id_variantes}`; // Imagem
-    let imagem = new FormData();
-    imagem.append("imagem", img);
+  async function alterarImagem(id) {
+    if (!img || typeof img === "string") {
+      // Não atualiza imagem se ela não foi alterada
+      return 200;
+    }
 
-    let respImg = await axios.post(urlImagem, imagem, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    let idImg = await buscarImagemProduto(id);
+    if (!idImg || !idImg[0]) {
+      // Criar nova imagem, já que não possui uma cadastrada
+      let variante = await buscarVariante(id);
+      await cadastrarImagem(id, variante.id_variantes);
+      return 200;
+    } else {
+      // Alterar imagem existente
+      let url = "http://localhost:5000/imagem/" + idImg[0].id_imagens;
+      let imagemForm = new FormData();
+      imagemForm.append("imagem", img);
+
+      let resp = await axios.put(url, imagemForm, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return resp.status;
+    }
+  }
+
+  // Excluir Produto
+  async function excluirProduto(id) {
+    let url = "http://localhost:5000/produto/" + id;
+    let imgs = await excluirImagens(id);
+    let vari = await excluirVariantes(id);
+    if (imgs !== 1 && vari !== 200) {
+      toast.error("Erro ao excluir imagens ou variantes");
+    } else {
+      let resp = await axios.delete(url);
+      if (resp.status === 200) {
+        toast("Produto excluído com sucesso");
+      } else toast.error("Erro ao excluir produto");
+    }
+  }
+
+  async function excluirVariantes(id) {
+    try {
+      let url = "http://localhost:5000/variantes/produto/" + id;
+      let resp = await axios.delete(url);
+      return resp.status;
+    } catch (e) {
+      console.log("Erro ao excluir variantes: ", e);
+      return;
+    }
+  }
+
+  async function buscarImagens(id) {
+    try {
+      let url = "http://localhost:5000/imagem/produto/" + id;
+      let resp = await axios.get(url);
+      if (resp.status === 404) {
+        console.log("Imagens não encontradas");
+        return null;
+      }
+      return resp.data; // Array de JSON
+    } catch (e) {
+      console.log("Erro ao buscar imagens: ", e);
+      return null;
+    }
+  }
+
+  async function excluirImagens(id) {
+    try {
+      let idimagem;
+      let url = "http://localhost:5000/imagem/";
+      let imagens = await buscarImagens(id);
+      if (imagens !== null) {
+        for (let i = 0; i < imagens.length; i++) {
+          idimagem = imagens[i].id_imagens;
+          await axios.delete(url + idimagem);
+          console.log("Excluindo imagem: ", idimagem);
+        }
+        return 1;
+      }
+    } catch (e) {
+      console.log("Erro ao excluir imagens: ", e);
+      return;
+    }
   }
 
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
+      <ToastContainer />
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <section className="detalhes-produto">
           <div className="sec1">
@@ -127,6 +267,7 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
               <input
                 type="file"
                 id="imagem"
+                accept="image/*"
                 onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
@@ -144,11 +285,21 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
 
               <div className="sec2-info-input">
                 <label id="preco">Preço: </label>
-                <input
+                <NumericFormat
                   id="preco"
-                  type="number"
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  prefix="R$ "
                   value={preco}
-                  onChange={(e) => setPreco(parseFloat(e.target.value) )}
+                  onValueChange={(values) => {
+                    const { formattedValue, value, floatValue } = values;
+                    setPreco(floatValue ?? "");
+                  }}
+                  allowNegative={false}
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  inputMode="decimal"
+                  className="preco-input"
                 />
               </div>
 
@@ -166,8 +317,35 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
           </div>
 
           <div className="sec3">
-            {btn}
-            <button>Excluir</button>
+            {props.id === 0 ? (
+              <button
+                onClick={() => {
+                  cadastrarProduto();
+                  onClose();
+                }}
+              >
+                Cadastrar
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  alterarProduto(props.id);
+                  onClose();
+                }}
+              >
+                Alterar
+              </button>
+            )}
+            {props.id !== 0 ? (
+              <button
+                onClick={() => {
+                  excluirProduto(props.id);
+                  onClose();
+                }}
+              >
+                Excluir
+              </button>
+            ) : null}
           </div>
         </section>
       </div>

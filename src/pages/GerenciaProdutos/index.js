@@ -2,7 +2,7 @@ import React from "react";
 import DetProduto from "../../components/detProduto";
 import HeaderAdm from "../../components/headerAdm";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import "./index.scss";
 
@@ -50,7 +50,10 @@ export default function GerenciaProdutos() {
     const lista = await Promise.all(
       produtosBase.map(async (produto) => {
         const variante = await buscarVariante(produto.id_produto);
-        const imagemData = await buscarImagem(produto.id_produto, variante?.id_variantes);
+        const imagemData = await buscarImagem(
+          produto.id_produto,
+          variante?.id_variantes
+        );
 
         return {
           id: produto.id_produto,
@@ -66,14 +69,12 @@ export default function GerenciaProdutos() {
     return lista;
   }
 
-  
   async function carregar() {
     const lista = await montarProdutos();
     // Evita setar o estado se a lista for a mesma
-    if (produtos !== lista){
+    if (produtos !== lista) {
       setProdutos(lista);
     }
-    
   }
 
   // Coisas de alteração e Cadastro de produto
@@ -81,38 +82,88 @@ export default function GerenciaProdutos() {
   // Excluir Produto
   async function excluirProduto(id) {
     let url = "http://localhost:5000/produto/" + id;
-    let resp=await axios.delete(url);
-    if (resp.status === 200) {
-      toast("Produto excluído com sucesso");
-      carregar();
+    let imgs = await excluirImagens(id);
+    let vari = await excluirVariantes(id);
+    if (imgs !== 1 && vari !== 200) {
+      toast.error("Erro ao excluir imagens ou variantes");
     } else {
-      toast.error("Erro ao excluir produto");
+      let resp = await axios.delete(url);
+      if (resp.status === 200) {
+        toast("Produto excluído com sucesso");
+        carregar();
+      } else toast.error("Erro ao excluir produto");
     }
   }
-  
+
+  async function excluirVariantes(id) {
+    try {
+      let url = "http://localhost:5000/variantes/produto/"+id;
+      let resp = await axios.delete(url);
+      return resp.status;
+    } catch (e) {
+      console.log("Erro ao excluir variantes: ", e);
+      return;
+    }
+  }
+
+  async function buscarImagens(id) {
+    try {
+      let url = "http://localhost:5000/imagem/produto/" + id;
+      let resp = await axios.get(url);
+      if (resp.status === 404) {
+        console.log("Imagens não encontradas");
+        return null;
+      }
+      return resp.data; // Array de JSON
+    } catch (e) {
+      console.log("Erro ao buscar imagens: ", e);
+      return null;
+    }
+  }
+
+  async function excluirImagens(id) {
+    try {
+      let idimagem;
+      let url = "http://localhost:5000/imagem/";
+      let imagens = await buscarImagens(id);
+      if (imagens !== null) {
+        for (let i = 0; i < imagens.length; i++) {
+          idimagem = imagens[i].id_imagens;
+          await axios.delete(url + idimagem);
+          console.log("Excluindo imagem: ", idimagem);
+        }
+        return 1;
+      }
+    } catch (e) {
+      console.log("Erro ao excluir imagens: ", e);
+      return;
+    }
+  }
+
   useEffect(() => {
     carregar();
-
   }, []);
 
   return (
     <main className="gerencia-produtos">
-      <ToastContainer/>
+      <ToastContainer />
       <HeaderAdm page="produtos" />
       <DetProduto
         id={idProduto}
         isOpen={isOpen}
-        onClose={() => setIsOpen(false) }
+        onClose={() => setIsOpen(false)}
       />
       <section className="titulo">
         <div>
           <Link to="/admin">Voltar</Link>
           <h1>Produtos</h1>
-          <button className="btn-cadastro" onClick={() => {
-            setIdProduto(0);
-            console.log(idProduto)
-            setIsOpen(true);
-            console.log("Teste btn")}}>
+          <button
+            className="btn-cadastro"
+            onClick={() => {
+              setIdProduto(0);
+              setIsOpen(true);
+            }}
+          >
             Novo Produto
           </button>
         </div>
@@ -142,18 +193,27 @@ export default function GerenciaProdutos() {
                     <td>R$ {item.preco}</td>
                     <td>{item.descricao}</td>
                     <td>
-                      <img src={`http://localhost:5000/${item.imagem}`} alt={item.nome} />
+                      <img
+                        src={`http://localhost:5000/${item.imagem}`}
+                        alt={item.nome}
+                      />
                     </td>
                     <td>
                       <button
-                        onClick={()=> 
-                          {setIdProduto(item.id)
-                            setIsOpen(true)} }
+                        onClick={() => {
+                          setIdProduto(item.id);
+                          setIsOpen(true);
+                        }}
                         className="btn-editar"
                       >
                         Editar
                       </button>
-                      <button className="btn-excluir" onClick={()=>excluirProduto(item.id)}>Excluir</button>
+                      <button
+                        className="btn-excluir"
+                        onClick={() => excluirProduto(item.id)}
+                      >
+                        Excluir
+                      </button>
                     </td>
                   </tr>
                 ))
