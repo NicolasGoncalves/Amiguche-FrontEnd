@@ -71,13 +71,12 @@ export default function GerenciaProdutos() {
 
   async function carregar() {
     const lista = await montarProdutos();
-    // Evita setar o estado se a lista for a mesma
-    if (produtos !== lista) {
-      setProdutos(lista);
-    }
-  }
 
-  // Coisas de alteração e Cadastro de produto
+    // Evita setar o estado se a lista for a mesma
+    if (produtos !== lista) 
+      setProdutos(lista);
+    
+  }
 
   // Excluir Produto
   async function excluirProduto(id) {
@@ -88,9 +87,10 @@ export default function GerenciaProdutos() {
       toast.error("Erro ao excluir imagens ou variantes");
     } else {
       let resp = await axios.delete(url);
+      console.log("Resposta: ", resp);
       if (resp.status === 200) {
         toast("Produto excluído com sucesso");
-        carregar();
+        // carregar();
       } else toast.error("Erro ao excluir produto");
     }
   }
@@ -142,7 +142,7 @@ export default function GerenciaProdutos() {
 
   useEffect(() => {
     carregar();
-  }, []);
+  }, [carregar()]);
 
   return (
     <main className="gerencia-produtos">

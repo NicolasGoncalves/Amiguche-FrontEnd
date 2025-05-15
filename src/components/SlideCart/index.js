@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
-import { getCart, removeFromCart, clearCart } from "../../services/carrinhoService.js";
+import {
+  getCart,
+  removeFromCart,
+  clearCart,
+} from "../../services/carrinhoService.js";
 
 export default function SlideCart({ isOpen, onClose }) {
   const [cart, setCart] = useState([]);
@@ -11,23 +15,32 @@ export default function SlideCart({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  const total = cart.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.preco * item.quantidade,
+    0
+  );
 
-  function handleRemove(id) {
+  function cartRemove(id) {
     removeFromCart(id);
     setCart(getCart());
   }
 
-  function handleClear() {
+  function cartClear() {
     clearCart();
     setCart([]);
   }
 
   return (
     <div className={`slide-cart ${isOpen ? "open" : ""}`}>
-      <button className="close-btn" onClick={onClose}>✖</button>
-      <h2>Seu Carrinho 🛒</h2>
-      <hr />
+      <div className="cart-header">
+        <div className="titulo">
+          <button className="close-btn" onClick={onClose}>
+            ✖
+          </button>
+          <h2>Seu Carrinho 🛒</h2>
+        </div>
+        <hr />
+      </div>
 
       <div className="box-produtos">
         {cart.length === 0 ? (
@@ -39,11 +52,16 @@ export default function SlideCart({ isOpen, onClose }) {
               <div className="info">
                 <h3>{item.nome}</h3>
                 <p>Quantidade: {item.quantidade}</p>
-                <p>Preço: R$ {item.preco.toFixed(2)}</p>
+                <p>Preço: R$ {item.preco}</p>
               </div>
-              <button className="remover-btn" onClick={() => handleRemove(item.id)}>
-                Remover
-              </button>
+              <div className="btn-container">
+                <button
+                  className="remover-btn"
+                  onClick={() => cartRemove(item.id)}
+                >
+                  Remover
+                </button>
+              </div>
             </div>
           ))
         )}
@@ -54,7 +72,9 @@ export default function SlideCart({ isOpen, onClose }) {
       {cart.length > 0 && (
         <div className="btn-container">
           <button className="checkout-btn">Finalizar Compra</button>
-          <button className="clear-btn" onClick={handleClear}>Limpar Carrinho</button>
+          <button className="clear-btn" onClick={cartClear}>
+            Limpar Carrinho
+          </button>
         </div>
       )}
     </div>

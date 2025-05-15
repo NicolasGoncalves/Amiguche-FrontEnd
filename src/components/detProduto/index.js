@@ -24,6 +24,8 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       setDescricao("");
       setImage(undefined);
     }
+
+    console.log("ID do produto:", props.id);
   }, [props.id]);
 
   //Exibição dos dados
@@ -160,6 +162,7 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       preco: parseFloat(preco),
       id: id,
     });
+    console.log("Resposta: ", resp);
     return resp.status;
   }
 
@@ -325,7 +328,6 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
               <button
                 onClick={() => {
                   cadastrarProduto();
-                  onClose();
                 }}
               >
                 Cadastrar

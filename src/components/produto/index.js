@@ -9,11 +9,11 @@ import { addToCart } from "../../services/carrinhoService.js";
 import axios from "axios";
 
 export default function Produto(props) {
-  const [nome, setNome] = useState("Amigurumi");
-  const [imagem, setImagem] = useState("./images/Boneca-girafa.png");
-  const [preco, setPreco] = useState("R$ 90,00");
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [nome, setNome] = useState("");
+  const [imagem, setImagem] = useState("");
+  const [preco, setPreco] = useState("");
+  // const [isOpen, setIsOpen] = useState(false);
+  
   function addCarrinho(){
     if (props.id) {
       addToCart({
@@ -25,41 +25,54 @@ export default function Produto(props) {
       toast("Produto adicionado ao carrinho");
     }
   }
-
+  
   async function buscarNome() {
     let url = "http://localhost:5000/produto/" + props.id;
     let resp = await axios.get(url);
     return resp.data.nome;
   }
-
+  
   async function buscarVariante() {
-    let url = "http://localhost:5000/variantes/produto/" + props.id;
-    let resp = await axios.get(url);
-    console.log(`R$ ${parseFloat(resp.data[0].preco)}`);
-    return resp.data[0];
+    try {
+      const url = `http://localhost:5000/variantes/produto/${props.id}`;
+      const resp = await axios.get(url);
+      return resp.data[0] || null;
+    } catch (err) {
+      console.error("Erro ao buscar variante:", err);
+      return null;
+    }
   }
 
-  async function buscarImagem() {
-    let url = `http://localhost:5000/imagem/produto/${props.id}/variante/${
-      buscarVariante().id_variantes
-    }`;
+  async function buscarImagemProdutoVariante() {
     try {
-      let resp = await axios.get(url);
-      // Se vier mais de uma imagem, pegue a primeira
-      return resp.data[0]?.caminho;
+      const variante = await buscarVariante(props.id);
+      const url = `http://localhost:5000/imagem/produto/${props.id}/variante/${variante.id_variantes}`;
+      const resp = await axios.get(url);
+      return resp.data.imagens;
     } catch (err) {
       console.error("Erro ao buscar imagem:", err);
       return null;
     }
   }
 
-  useEffect(() => {
-    if (props.id) {
-      setNome(buscarNome());
-      setPreco(`R$ ${buscarVariante.preco}`);
-      if(buscarImagem()==null) 
-        setImagem(buscarImagem());
+  async function montarProduto() {
+    setNome(await buscarNome());
+
+    const variante = await buscarVariante();
+    if (variante) {
+      setPreco(variante.preco);
     }
+    
+    const img = await buscarImagemProdutoVariante();
+    if (img && typeof img === "string") {
+      setImagem(`http://localhost:5000/${img}`);
+      console.log(imagem);
+    }
+  }
+
+  useEffect(() => {
+    if(props.id)
+      montarProduto();
   }, [props.id]);
 
   return (
@@ -68,7 +81,7 @@ export default function Produto(props) {
       <div className="pos1">
         <img src={imagem} alt="imagem do produto" />
         <h2 className="titulo">{nome}</h2>
-        <h2 className="preco">{preco}</h2>
+        <h2 className="preco">R$ {preco}</h2>
       </div>
 
       <div className="pos2">

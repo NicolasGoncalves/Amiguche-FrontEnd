@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: start;
   width: 100%;
-  height: 100vh;
   background-color: #fff9eb;
+  min-height: 100vh;
+  margin-bottom: 2em;
 
   .titulo {
     display: flex;
@@ -13,6 +14,7 @@
     justify-content: center;
     width: 91vw;
     height: 10vh;
+    min-height: 10vh;
 
     div {
       display: flex;
@@ -51,6 +53,7 @@
     align-items: flex-start;
     margin-top: 20px;
     padding: 0 20px;
+    // margin-bottom: 10em;
   }
 
   .tabela-container {
