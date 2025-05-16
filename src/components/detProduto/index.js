@@ -9,13 +9,14 @@ import { NumericFormat } from "react-number-format";
 
 export default function DetProduto({ isOpen, onClose, ...props }) {
   //Produto
+  const [idProduto, setIdProduto] = useState(props.id);
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   const [descricao, setDescricao] = useState("");
   const [img, setImage] = useState();
 
   useEffect(() => {
-    if (props.id !== 0) {
+    if (idProduto !== 0) {
       montarProduto();
     } else {
       // novo produto
@@ -25,19 +26,19 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       setImage(undefined);
     }
 
-    console.log("ID do produto:", props.id);
-  }, [props.id]);
+    console.log("ID do produto:", idProduto);
+  }, [idProduto]);
 
   //Exibição dos dados
   async function buscarNome() {
-    let url = "http://localhost:5000/produto/" + props.id;
+    let url = "http://localhost:5000/produto/" + idProduto;
     let resp = await axios.get(url);
     return resp.data.nome;
   }
 
   async function buscarVariante() {
     try {
-      const url = `http://localhost:5000/variantes/produto/${props.id}`;
+      const url = `http://localhost:5000/variantes/produto/${idProduto}`;
       const resp = await axios.get(url);
       return resp.data[0] || null;
     } catch (err) {
@@ -48,8 +49,8 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
 
   async function buscarImagemProdutoVariante() {
     try {
-      const variante = await buscarVariante(props.id);
-      const url = `http://localhost:5000/imagem/produto/${props.id}/variante/${variante.id_variantes}`;
+      const variante = await buscarVariante(idProduto);
+      const url = `http://localhost:5000/imagem/produto/${idProduto}/variante/${variante.id_variantes}`;
       const resp = await axios.get(url);
       return resp.data.imagens;
     } catch (err) {
@@ -122,6 +123,7 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       setPreco("");
       setDescricao("");
       setImage(undefined);
+      setIdProduto(0);
     } catch (err) {
       console.error("Erro ao cadastrar produto:", err);
     }
@@ -324,7 +326,7 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
           </div>
 
           <div className="sec3">
-            {props.id === 0 ? (
+            {idProduto === 0 ? (
               <button
                 onClick={() => {
                   cadastrarProduto();
@@ -335,16 +337,16 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
             ) : (
               <button
                 onClick={() => {
-                  alterarProduto(props.id);
+                  alterarProduto(idProduto);
                 }}
               >
                 Alterar
               </button>
             )}
-            {props.id !== 0 ? (
+            {idProduto !== 0 ? (
               <button
                 onClick={() => {
-                  excluirProduto(props.id);
+                  excluirProduto(idProduto);
                 }}
               >
                 Excluir

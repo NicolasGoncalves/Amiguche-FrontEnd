@@ -48,13 +48,13 @@ export default function SlideCart({ isOpen, onClose }) {
         ) : (
           cart.map((item) => (
             <div key={item.id} className="produto">
-              <img src={item.imagem} alt={item.nome} width={50} />
+              <img src={item.imagem} alt={item.nome}/>
               <div className="info">
                 <h3>{item.nome}</h3>
                 <p>Quantidade: {item.quantidade}</p>
                 <p>Preço: R$ {item.preco}</p>
               </div>
-              <div className="btn-container">
+              <div className="info-btn">
                 <button
                   className="remover-btn"
                   onClick={() => cartRemove(item.id)}

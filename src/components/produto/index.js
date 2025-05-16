@@ -17,6 +17,7 @@ export default function Produto(props) {
   function addCarrinho(){
     if (props.id) {
       addToCart({
+        id:props.id,
         imagem:imagem,
         nome:nome,
         preco:preco,
