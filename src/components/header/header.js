@@ -1,71 +1,106 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SlideCart from "../SlideCart";
+import axios from "axios";
 
 import "./header.scss";
 
 export default function Header() {
-    const [cartOpen, setCartOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState("home");
+  const [cartOpen, setCartOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
-    useEffect(() => {
-        const sections = document.querySelectorAll("section");
+  const [role, setRole] = useState("");
+  const [client, setClient] = useState("");
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
-                    }
-                });
-            },
-            { threshold: 0.6 }
-        );
+  useEffect(() => {
+      loged();
 
-        sections.forEach((section) => observer.observe(section));
+    const sections = document.querySelectorAll("section");
 
-        return () => observer.disconnect();
-    }, []);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
 
-    const navItems = [
-        { id: "home", label: "Home" },
-        { id: "sobremim", label: "Sobre" },
-        { id: "novidades", label: "Novidades" },
-        { id: "produtos", label: "Produtos" },
-        { id: "contato", label: "Contato" },
-    ];
+    sections.forEach((section) => observer.observe(section));
 
-    return (
-        <>
-            <header>
-                <nav id="navbar">
-                    <ul id="nav_list">
-                        {navItems.map((item) => (
-                            <li
-                                key={item.id}
-                                className={`nav_item ${activeSection === item.id ? "active" : ""}`}
-                            >
-                                <a href={`#${item.id}`}>{item.label}</a>
-                            </li>
-                        ))}
-                    </ul>
+    return () => observer.disconnect();
+  }, []);
 
-                    <ul id="nav_list2">
-                        <FaShoppingCart
-                            className="item-kart"
-                            onClick={() => setCartOpen(true)}
-                            style={{ cursor: "pointer" }}
-                        />
-                        <Link to="/login" className="item_login">Login</Link>
-                    </ul>
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "sobremim", label: "Sobre" },
+    { id: "novidades", label: "Novidades" },
+    { id: "produtos", label: "Produtos" },
+    { id: "contato", label: "Contato" },
+  ];
 
-                </nav>
-            </header>
+  console.log("role", role);
 
-            <SlideCart isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-        </>
-    )
+  async function loged() {
+    let user = localStorage.getItem("user");
+    if (user) setRole(user.role);
+    console.log(user);
+
+    if (role === "client") {
+      let id = localStorage.getItem("client").id;
+      let url = "http://localhost:5000/cliente/"+id;
+      let resp=await axios.get(url);
+      setClient(resp.data.nome.chatAt(0).toUpperCase());
+    }
+  }
+
+  return (
+    <>
+      <header>
+        <nav id="navbar">
+          <ul id="nav_list">
+            {navItems.map((item) => (
+              <li
+                key={item.id}
+                className={`nav_item ${
+                  activeSection === item.id ? "active" : ""
+                }`}
+              >
+                <a href={`#${item.id}`}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+
+          <ul id="nav_list2">
+            <FaShoppingCart
+              className="item-kart"
+              onClick={() => setCartOpen(true)}
+              style={{ cursor: "pointer" }}
+            />
+
+            {role === "user" ? (
+              <Link to="/admin" className="item_login">
+                Admin
+              </Link>
+            ) : role === "client" ? (
+              <Link to="/" className="item_login">
+                {client}
+              </Link>
+            ) : role === "" ? (
+              <Link to="/login" className="item_login">
+                Login
+              </Link>
+            ) : null}
+          </ul>
+        </nav>
+      </header>
+
+      <SlideCart isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+    </>
+  );
 }
 /* fazer a responsividade do bars */

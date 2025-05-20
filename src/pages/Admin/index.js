@@ -1,10 +1,12 @@
 import React from 'react';
 import HeaderAdm from '../../components/headerAdm'
+import { ToastContainer } from 'react-toastify';
 import './index.scss'
 
 export default function Admin() {
     return (
         <main className="admin">
+            <ToastContainer/>
             <HeaderAdm/>
             <div className='content'>
                 <h1>Área Administrativa</h1>

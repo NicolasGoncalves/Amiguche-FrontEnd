@@ -15,12 +15,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // gap: 2px;
-
-    width: 50%;
-    height: 66vh;
-    box-shadow: 0px 0px 12px 3px #0000002a;
-    background-color: #ffa21fbd;
+    gap: 25px;
+    width: 70%;
+    height: 70vh;
+    box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.1647058824);
+    background-color: rgba(255, 162, 31, 0.7411764706);
     border-radius: 50px;
 
     .title {
@@ -32,8 +31,24 @@
       margin-bottom: 20px;
     }
 
+    .login-form {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+
+      .input-box {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
     .input-linha {
-      width: 80%;
+      width: 90%;
       height: 50px;
       margin-bottom: 20px;
       background-color: #f9f9f9;
@@ -41,7 +56,6 @@
       border-radius: 10px;
       padding-left: 20px;
       padding-right: 20px;
-      margin-bottom: 20px;
       font-size: 18px;
       box-shadow: 0px 0px 12px 3px #0000002a;
     }
@@ -50,34 +64,23 @@
       outline: none;
       border: none;
     }
-
-    a {
-      width: 100%;
-      height: 37px;
+    
+    .btn-Login {
+      width: 25%;
+      height: 40px;
       border: none;
       border-radius: 10px;
-      //background-color: #8c5522;
-      margin-bottom: 10px;
-      text-decoration: none;
+      background-color: #8c5522;
       color: #f9f9f9;
       font-family: "Poppins", sans-serif;
       font-weight: 700;
       font-size: 15px;
     }
-    
-    .btn-Login {
-        width: 30%;
-        height: 37px;
-        border: none;
-        border-radius: 10px;
-      background-color: #8c5522;
-      // margin-bottom: 10px;
-    }
 
-    button:hover{
-        cursor: pointer;
-        width: 31%;
-        transition: 0.3s ease-in-out;
+    button:hover {
+      cursor: pointer;
+      width: 26%;
+      transition: 0.3s ease-in-out;
     }
   }
 }
