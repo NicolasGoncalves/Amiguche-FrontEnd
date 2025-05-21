@@ -202,6 +202,8 @@ export default function GerenciaProdutos() {
                       <button
                         onClick={() => {
                           setIdProduto(item.id);
+                          console.log("ID do produto: ", item.id);
+                          console.log("ID do componente: ", idProduto);                          
                           setIsOpen(true);
                         }}
                         className="btn-editar"

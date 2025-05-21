@@ -43,14 +43,16 @@ export default function Header() {
     { id: "contato", label: "Contato" },
   ];
 
-  console.log("role", role);
+  // console.log("role "+ role);
 
   async function loged() {
     let user = localStorage.getItem("user");
-    if (user) setRole(user.role);
-    console.log(user);
+    user=JSON.parse(user);
+    if (user){
+      setRole(user.role);
+    } 
 
-    if (role === "client") {
+    if (user.role === "client") {
       let id = localStorage.getItem("client").id;
       let url = "http://localhost:5000/cliente/"+id;
       let resp=await axios.get(url);

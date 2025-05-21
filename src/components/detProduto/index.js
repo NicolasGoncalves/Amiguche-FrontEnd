@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import axios from "axios";
 import "./index.scss";
@@ -26,7 +25,6 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       setImage(undefined);
     }
 
-    console.log("ID do produto:", idProduto);
   }, [idProduto]);
 
   //Exibição dos dados
@@ -119,10 +117,10 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       await cadastrarImagem(respProduto.data.novoId, respVariante.data.novoId);
 
       toast.success("Produto cadastrado com sucesso!");
-      setNome("");
-      setPreco("");
-      setDescricao("");
-      setImage(undefined);
+      // setNome("");
+      // setPreco("");
+      // setDescricao("");
+      // setImage(undefined);
       setIdProduto(0);
     } catch (err) {
       console.error("Erro ao cadastrar produto:", err);

@@ -67,7 +67,7 @@ export default function Produto(props) {
     const img = await buscarImagemProdutoVariante();
     if (img && typeof img === "string") {
       setImagem(`http://localhost:5000/${img}`);
-      console.log(imagem);
+      // console.log(imagem);
     }
   }
 

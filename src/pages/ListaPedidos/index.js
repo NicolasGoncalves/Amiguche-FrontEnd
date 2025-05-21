@@ -1,73 +1,73 @@
-import React from 'react';
-
-import HeaderAdm from "../../components/headerAdm"
+import React, { useState, useEffect } from "react";
+import { buscarPedidos, buscarProdutosPorPedido } from "../../services/pedidosService.js";
+import HeaderAdm from "../../components/headerAdm";
 import "./index.scss";
 
 export default function ListaPedidos() {
+  const [pedidos, setPedidos] = useState([]);
 
-    return (
-        <main className="lista-pedidos">
-            <HeaderAdm page="pedidos"/>
-            <h1>Lista de Pedidos</h1>
-            <section className="panel">
-                <div className="tabela-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Cliente</th>
-                                <th>Produto Encomendado</th>
-                                <th>Valor Total</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#001</td>
-                                <td>João Silva</td>
-                                <td>Amigurumi Girafa</td>
-                                <td>R$ 50,00</td>
-                                <td><span className="status entregue">Entregue</span></td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Maria Costa</td>
-                                <td>Branca de neve + Papai Noel</td>
-                                <td>R$ 110,00</td>
-                                <td><span className="status pendente">Pendente</span></td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Maria Costa</td>
-                                <td>Branca de neve + Papai Noel</td>
-                                <td>R$ 110,00</td>
-                                <td><span className="status pendente">Pendente</span></td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Maria Costa</td>
-                                <td>Branca de neve + Papai Noel</td>
-                                <td>R$ 110,00</td>
-                                <td><span className="status pendente">Pendente</span></td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Maria Costa</td>
-                                <td>Branca de neve + Papai Noel</td>
-                                <td>R$ 110,00</td>
-                                <td><span className="status pendente">Pendente</span></td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Maria Costa</td>
-                                <td>Branca de neve + Papai Noel</td>
-                                <td>R$ 110,00</td>
-                                <td><span className="status pendente">Pendente</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    )
+  useEffect(() => {
+    carregarPedidos();
+  }, []);
+
+  async function carregarPedidos() {
+    try {
+      let lista = await buscarPedidos();
+      for (let i = 0; i < lista.length; i++) {
+        let produtos = await buscarProdutosPorPedido(lista[i].id);
+        lista[i] = {
+          ...lista[i],
+          produtos,
+        };
+      }
+      setPedidos(lista);
+    } catch (err) {
+      console.error("Erro ao carregar pedidos:", err);
+    }
+  }
+
+  return (
+    <main className="lista-pedidos">
+      <HeaderAdm page="pedidos" />
+      <h1>Lista de Pedidos</h1>
+      <section className="panel">
+        <div className="tabela-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Produto Encomendado</th>
+                <th>Valor Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pedidos.map((pedido, index) => (
+                <tr key={index}>
+                  <td>{pedido.id}</td>
+                  <td>{pedido.nome}</td>
+                  <td>
+                    {pedido.produtos.map((produto, i) => (
+                      <div key={i}>
+                        {produto.quantidade}x {produto.nome}
+                      </div>
+                    ))}
+                  </td>
+                  <td>R$ {pedido.preco.toFixed(2)}</td>
+                  <td>
+                    {pedido.status === "Pendente" ? (
+                      <span className="status pendente">Pendente</span>
+                    ) : (
+                      <span className="status entregue">Entregue</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  );
 }
