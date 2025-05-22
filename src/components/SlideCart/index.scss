@@ -75,60 +75,62 @@
   .box-produtos {
     border-radius: 12px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
-    padding: 1rem 1rem;
-    width: 513px;
+    padding: 1rem;
+    width: 100%;
     background-color: #fffefd;
+    max-height: 60vh; // Altura máxima antes de rolar
+    overflow-y: auto; // Habilita rolagem vertical
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 15px;
 
+    .produtos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
     .produto {
       display: flex;
-      border: 2px solid black;
-      height: 84px;
+      border: 2px solid #e0e0e0;
+      height: 120px;
       border-radius: 12px;
       align-items: center;
-      justify-content: space-between;
+      padding: 10px;
+      background: white;
 
       img {
         width: 80px;
         height: 80px;
         object-fit: cover;
-        border-radius: 10px;
+        border-radius: 8px;
+        margin-right: 15px;
       }
 
       .info {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-        justify-content: space-evenly;
-        align-items: center;
-        height: 100%;
-
-        p{
-          font-family: "Poppins", sans-serif;
-          font-size: 17px;
+        flex: 1;
+        h3 {
+          margin: 0 0 5px 0;
+          font-size: 16px;
+          color: #333;
+        }
+        p {
+          margin: 3px 0;
+          font-size: 14px;
+          color: #666;
         }
       }
 
-      .info-btn {
-        width: 23%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-
-        .remover-btn {
-          background-color: #dc3545;
-          color: white;
-          padding: 6px 12px;
-          margin: 0 4px;
-          border: none;
-          border-radius: 6px;
-          font-weight: 500;
-          cursor: pointer;
-        }
+      .remover-btn {
+        background: #ff4444;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        align-self: center;
       }
     }
   }

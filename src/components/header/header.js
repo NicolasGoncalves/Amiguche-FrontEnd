@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { logout } from "../../services/loginService.js";
+import { clearCart } from "../../services/carrinhoService.js";
 import SlideCart from "../SlideCart";
 import axios from "axios";
 
@@ -15,7 +17,7 @@ export default function Header() {
   const [client, setClient] = useState("");
 
   useEffect(() => {
-      loged();
+    loged();
 
     const sections = document.querySelectorAll("section");
 
@@ -47,18 +49,25 @@ export default function Header() {
 
   async function loged() {
     let user = localStorage.getItem("user");
-    user=JSON.parse(user);
-    if (user){
+    user = JSON.parse(user);
+    if (user) {
       setRole(user.role);
-    } 
 
-    if (user.role === "client") {
-      let id = localStorage.getItem("client").id;
-      let url = "http://localhost:5000/cliente/"+id;
-      let resp=await axios.get(url);
-      setClient(resp.data.nome.chatAt(0).toUpperCase());
+      if (user.role === "client") {
+        let id = user.id;
+        let url = "http://localhost:5000/cliente/" + id;
+        let resp = await axios.get(url);
+        let nome = resp.data.nome;
+        setClient(nome.split(" ")[0]);
+      }
     }
   }
+
+  const Logout = () => {
+    clearCart(); // Limpa o carrinho
+    logout(); // Executa o logout
+    window.location.reload();
+  };
 
   return (
     <>
@@ -85,13 +94,27 @@ export default function Header() {
             />
 
             {role === "user" ? (
-              <Link to="/admin" className="item_login">
-                Admin
-              </Link>
+              <>
+                <Link to="/admin" className="item_login">
+                  Admin
+                </Link>
+                <FaSignOutAlt
+                  className="item_logout"
+                  onClick={Logout}
+                  title="Sair"
+                />
+              </>
             ) : role === "client" ? (
-              <Link to="/" className="item_login">
-                {client}
-              </Link>
+              <>
+                <Link to="/" className="item_login">
+                  {client}
+                </Link>
+                <FaSignOutAlt
+                  className="item_logout"
+                  onClick={Logout}
+                  title="Sair"
+                />
+              </>
             ) : role === "" ? (
               <Link to="/login" className="item_login">
                 Login

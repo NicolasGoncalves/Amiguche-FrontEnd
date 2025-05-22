@@ -23,7 +23,9 @@ export default function Produto(props) {
         preco:preco,
         quantidade:1
       })
-      toast("Produto adicionado ao carrinho");
+      toast("Produto adicionado ao carrinho",{
+        autoClose: 900,
+      });
     }
   }
   

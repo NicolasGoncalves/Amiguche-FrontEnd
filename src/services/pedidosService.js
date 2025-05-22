@@ -9,8 +9,7 @@ export async function criarPedido() {
     let cart = getCart();
     let logged = getUser();
 
-    let date = new Date().toISOString();
-    console.log(date);
+    let date = new Date().toISOString().split('T')[0]; // "2025-05-13"
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
       total += cart[i].preco * cart[i].quantidade;
@@ -23,12 +22,27 @@ export async function criarPedido() {
     };
 
     let resp = await axios.post(API_URL, pedido);
-    await adicionarProduto(pedido);
+
+    await adicionarProduto(resp.data.novoId);
+
     console.log("Resposta: ", resp);
-  } catch (e) {}
+  } catch (e) {
+    console.log("Erro ao criar pedido: ", e);
+  }
 }
 
-export async function adicionarProduto(pedido) {
+export async function alterarStatusPedido(id, pedido) {
+  try {
+    let url = `${API_URL}/${id}`;
+    let resp = await axios.put(url, pedido); // Envia o objeto pedido completo
+    console.log("Resposta: ", resp);
+    return resp.data;
+  } catch (e) {
+    console.log("Erro ao alterar status do pedido: ", e);
+  }
+}
+
+export async function adicionarProduto(novoId) {
   try {
     let cart = getCart();
     let url = `${API_URL}/produtos`;
@@ -36,7 +50,7 @@ export async function adicionarProduto(pedido) {
     for (let i = 0; i < cart.length; i++) {
       produto = {
         qtd: cart[i].quantidade,
-        id: pedido.novoId,
+        id: novoId,
         id_produto: cart[i].id,
       };
       resp = await axios.post(url, produto);

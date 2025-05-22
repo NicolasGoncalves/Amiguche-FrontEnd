@@ -15,6 +15,10 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
   const [img, setImage] = useState();
 
   useEffect(() => {
+    setIdProduto(props.id);
+  }, [props.id]);
+
+  useEffect(() => {
     if (idProduto !== 0) {
       montarProduto();
     } else {
@@ -24,7 +28,6 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       setDescricao("");
       setImage(undefined);
     }
-
   }, [idProduto]);
 
   //Exibição dos dados
@@ -117,10 +120,10 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
       await cadastrarImagem(respProduto.data.novoId, respVariante.data.novoId);
 
       toast.success("Produto cadastrado com sucesso!");
-      // setNome("");
-      // setPreco("");
-      // setDescricao("");
-      // setImage(undefined);
+      setNome("");
+      setPreco("");
+      setDescricao("");
+      setImage(undefined);
       setIdProduto(0);
     } catch (err) {
       console.error("Erro ao cadastrar produto:", err);
@@ -145,10 +148,16 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
     let vari = await alterarVariantes(id);
     let imag = await alterarImagem(id);
     let resp = await axios.put(url, {
-      nome: nome
+      nome: nome,
     });
     if (resp.status === 200 && vari === 200 && imag === 200)
-      toast.success("Produto alterado com sucesso");
+      toast.success("Produto alterado com sucesso", {
+        autoClose: 1000,
+        onClose: () => {
+          onClose();
+        },
+      });
+    else toast.error("Erro ao alterar produto");
   }
 
   async function alterarVariantes(id) {
@@ -261,7 +270,7 @@ export default function DetProduto({ isOpen, onClose, ...props }) {
           <div className="sec1">
             <div>
               {/* <Link> */}
-                <h2 onClick={onClose}>Voltar</h2>
+              <h2 onClick={onClose}>Voltar</h2>
               {/* </Link> */}
               <h1>Detalhes do Produto</h1>
             </div>

@@ -37,8 +37,8 @@ export default function SlideCart({ isOpen, onClose }) {
     try {
       await criarPedido(); // cria o pedido e associa os produtos
       toast.success("Pedido finalizado com sucesso! 🎉");
-      cartClear();         // limpa o carrinho
-      onClose();           // fecha o slide
+      cartClear(); // limpa o carrinho
+      onClose(); // fecha o slide
     } catch (err) {
       console.error("Erro ao finalizar pedido:", err);
       toast.error("Erro ao finalizar o pedido. Tente novamente.");

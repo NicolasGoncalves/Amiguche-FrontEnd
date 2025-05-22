@@ -1,6 +1,8 @@
 import axios from "axios";
 const LOGIN_KEY = "user";
 
+
+
 export function getUser() {
   const data = localStorage.getItem(LOGIN_KEY);
   return data ? JSON.parse(data) : null;
@@ -95,6 +97,10 @@ export async function login(email, senha) {
   }
   removeUser();
   return "erro"; // Nenhum login funcionou
+}
+
+export function logout() {
+  removeUser(); // Usa a função já existente no service
 }
 
 export async function cadastrar(cliente){

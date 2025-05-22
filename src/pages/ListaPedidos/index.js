@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { buscarPedidos, buscarProdutosPorPedido } from "../../services/pedidosService.js";
+import { buscarPedidos, buscarProdutosPorPedido, alterarStatusPedido } from "../../services/pedidosService.js";
 import HeaderAdm from "../../components/headerAdm";
 import "./index.scss";
 
@@ -8,7 +8,7 @@ export default function ListaPedidos() {
 
   useEffect(() => {
     carregarPedidos();
-  }, []);
+  }, [carregarPedidos]);
 
   async function carregarPedidos() {
     try {
@@ -25,6 +25,22 @@ export default function ListaPedidos() {
       console.error("Erro ao carregar pedidos:", err);
     }
   }
+
+  async function alterarStatus(id, pedido) {
+  try {
+    const novoStatus = pedido.status === "Entregue" ? "Pendente" : "Entregue";
+    const pedidoAtualizado = {
+      ...pedido,
+      status: novoStatus,
+      preco: parseFloat(pedido.preco)
+    };
+    
+    let resp = await alterarStatusPedido(id, pedidoAtualizado);
+    console.log("Resposta: ", resp); 
+  } catch (e) {
+    console.log("Erro ao alterar status do pedido: ", e);
+  }
+}
 
   return (
     <main className="lista-pedidos">
@@ -54,12 +70,12 @@ export default function ListaPedidos() {
                       </div>
                     ))}
                   </td>
-                  <td>R$ {pedido.preco.toFixed(2)}</td>
+                  <td>R$ {pedido.preco}</td>
                   <td>
                     {pedido.status === "Pendente" ? (
-                      <span className="status pendente">Pendente</span>
+                      <span className="status pendente" onClick={()=>alterarStatus(pedido.id,pedido)}>Pendente</span>
                     ) : (
-                      <span className="status entregue">Entregue</span>
+                      <span className="status entregue" onClick={()=>alterarStatus(pedido.id,pedido)}>Entregue</span>
                     )}
                   </td>
                 </tr>
